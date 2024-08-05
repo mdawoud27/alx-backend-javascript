@@ -8,9 +8,9 @@ push_changes() {
   git push
 }
 
-# Check if at least 1 arguments are provided
+# Check if at least 1 argument is provided
 if [ "$#" -lt 1 ]; then
-  echo "Error: There is no arguments."
+  echo "Error: No arguments provided."
   exit 1
 fi
 
@@ -23,13 +23,15 @@ fi
 
 # Assign arguments to variables
 action=$1
-task_num=$2
-task_name=$3
-error=$4
+task_input=$2
+error=$3
+
+# Extract the task number and task name
+task_num=$(echo "$task_input" | cut -d'.' -f1 | sed 's/^ //')
+task_name=$(echo "$task_input" | cut -d'.' -f2- | sed 's/^ //')
 
 # Determine the commit message based on the action
 if [ "$action" == "edit" ]; then
-   # If an additional argument is provided, include it in the message
    if [ -n "$error" ]; then
      commit_message="Task${task_num}[Edit]: ${task_name} {${error}}"
    else
@@ -47,6 +49,7 @@ else
    echo "Error: Action must be 'edit' or 'add'."
    exit 1
 fi
+
 # Call the function to push changes
 push_changes "$commit_message"
 

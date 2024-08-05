@@ -27,7 +27,6 @@ task_num=$2
 task_name=$3
 error=$4
 
-# Default commit message if task_num is not provided
 # Determine the commit message based on the action
 if [ "$action" == "edit" ]; then
    # If an additional argument is provided, include it in the message
@@ -41,7 +40,7 @@ elif [ "$action" == "add" ]; then
    if [ -n "$task_name" ]; then
      commit_message="Task${task_num}[Add]: ${task_name}"
    else
-     echo "Error: Edit action requires an additional argument."
+     echo "Error: Add action requires task name argument."
      exit 1
    fi
 else

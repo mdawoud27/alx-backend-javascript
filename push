@@ -1,7 +1,10 @@
 #!/bin/bash
 
+git rm -rf --cached .
+rm -rf .idea
+
 # Function to stage changes, commit with the generated message, and push
-push_changes() {
+push() {
   local commit_message="$1"
   git add .
   git commit -m "$commit_message"
@@ -17,7 +20,7 @@ fi
 # Check if at least 2 arguments are provided
 if [ "$#" -lt 2 ]; then
   commit_message="${*:1}"
-  push_changes "$commit_message"
+  push "$commit_message"
   exit 0
 fi
 
@@ -32,24 +35,23 @@ task_name=$(echo "$task_input" | cut -d'.' -f2- | sed 's/^ //')
 
 # Determine the commit message based on the action
 if [ "$action" == "edit" ]; then
-   if [ -n "$error" ]; then
-     commit_message="Task${task_num}[Edit]: ${task_name} {${error}}"
-   else
-     echo "Error: Edit action requires an additional argument."
-     exit 1
-   fi
+  if [ -n "$error" ]; then
+    commit_message="Task${task_num}[Edit]: ${task_name} {${error}}"
+  else
+    echo "Error: Edit action requires an additional argument."
+    exit 1
+  fi
 elif [ "$action" == "add" ]; then
-   if [ -n "$task_name" ]; then
-     commit_message="Task${task_num}[Add]: ${task_name}"
-   else
-     echo "Error: Add action requires task name argument."
-     exit 1
-   fi
+  if [ -n "$task_name" ]; then
+    commit_message="Task${task_num}[Add]: ${task_name}"
+  else
+    echo "Error: Add action requires task name argument."
+    exit 1
+  fi
 else
-   echo "Error: Action must be 'edit' or 'add'."
-   exit 1
+  echo "Error: Action must be 'edit' or 'add'."
+  exit 1
 fi
 
 # Call the function to push changes
-push_changes "$commit_message"
-
+push "$commit_message"

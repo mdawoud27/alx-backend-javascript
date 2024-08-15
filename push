@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# This script automates the process of pushing changes to a remote Git repository,
+# based on `add` or `edit` actions.
+# By dawoud
 
 # git rm -rf --cached .
 rm -rf .idea

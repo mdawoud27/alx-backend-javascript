@@ -52,3 +52,10 @@ function executeWork(employee: Director | Teacher): void {
         console.log(employee.workTeacherTasks());
     }
 }
+
+// 7. String literal types
+type Subjects = 'Math' | 'History';
+
+function teachClass(todayClass: Subjects): string {
+    return `Teaching ${todayClass === 'Math' ? 'Math' : 'History'}`;
+}

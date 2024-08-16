@@ -29,3 +29,14 @@ const director1: Directors = {
     numberOfReports: 17,
 };
 console.log(director1);
+
+// 3. Printing teachers
+interface printTeacherFunction {
+    (firstName: string, lastName: string): string;
+}
+
+const printTeacher: printTeacherFunction = (firstName, lastName) => {
+    return `${firstName.slice(0, 1)}. ${lastName}`;
+}
+
+printTeacher("John", "Doe")

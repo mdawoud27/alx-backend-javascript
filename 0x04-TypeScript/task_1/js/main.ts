@@ -40,3 +40,25 @@ const printTeacher: printTeacherFunction = (firstName, lastName) => {
 }
 
 printTeacher("John", "Doe")
+
+// 4. Writing a class
+interface StudentClassConstructor {
+    new (firstName: string, lastName: string): StudentClass;
+}
+
+interface StudentClass {
+    workOnHomework(): string;
+    displayName(): string;
+}
+
+class StudentClass {
+    constructor(private firstName: string, private lastName: string) {
+
+    }
+    workOnHomework (): string {
+        return "Currently working";
+    }
+    displayName(): string {
+        return this.firstName;
+    }
+}
